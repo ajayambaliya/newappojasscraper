@@ -27,12 +27,11 @@ export interface JobInsert {
   details?: Record<string, any>;
 }
 
-export async function checkJobExists(title: string, department: string): Promise<boolean> {
+export async function checkJobExists(advtNo: string): Promise<boolean> {
   const { data, error } = await supabase
     .from('jobs')
     .select('id')
-    .eq('title', title)
-    .eq('department', department)
+    .contains('details', { advt_no: advtNo })
     .limit(1);
 
   if (error) {

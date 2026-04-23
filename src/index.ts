@@ -21,12 +21,13 @@ async function run() {
 
   for (const listing of listings) {
     try {
-      const dept = listing.advtNo.split('/')[0];
-      const exists = await checkJobExists(listing.title, dept);
+      const exists = await checkJobExists(listing.advtNo);
       if (exists) {
         console.log(`Skipping existing job: ${listing.advtNo}`);
         continue;
       }
+
+      const dept = listing.advtNo.split('/')[0];
 
       console.log(`Processing new job: ${listing.advtNo} - ${listing.title}`);
 
